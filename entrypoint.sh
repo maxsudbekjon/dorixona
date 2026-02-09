@@ -3,28 +3,22 @@ set -e
 
 export $(grep -v '^#' .env | xargs)
 
-echo "🔄 Ожидание PostgreSQL..."
+echo "Waiting PostgreSQL..."
 while ! nc -z db 5432; do
   sleep 0.5
 done
-echo "✅ PostgreSQL доступен"
+echo "PostgreSQL is enabled"
 
-echo "🔄 Ожидание PgBouncer..."
-while ! nc -z pgbouncer ${PGBOUNCER_PORT}; do
-  sleep 0.5
-done
-echo "✅ PgBouncer доступен"
-
-echo "📦 Применение миграций..."
+echo "Process migrating..."
 python manage.py migrate --noinput
 
 #echo "🧹 Удаление sourceMappingURL из bootstrap.min.css..."
 #find . -name "bootstrap.min.css" -exec sed -i '/sourceMappingURL/d' {} \;
 
-echo "🧼 Сборка статики..."
+echo "Collecting static..."
 python manage.py collectstatic --noinput
 
-echo "🚀 Запуск Gunicorn..."
+echo "Running Gunicorn..."
 exec gunicorn src.wsgi:application \
     --bind 0.0.0.0:$ADMIN_PORT \
     --workers=4 \
