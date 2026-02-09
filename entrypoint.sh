@@ -20,7 +20,7 @@ python manage.py collectstatic --noinput
 
 echo "Running Gunicorn..."
 exec gunicorn src.wsgi:application \
-    --bind 0.0.0.0:$ADMIN_PORT \
+    --bind 0.0.0.0:$WEB_PORT \
     --workers=4 \
     --threads=2 \
     --worker-class=gthread \
