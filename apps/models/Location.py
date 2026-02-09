@@ -10,7 +10,7 @@ class Location(models.Model):
     # Qo'lyozmada bor, xaritada ko'rsatish uchun kerak:
     latitude = models.FloatField(blank=True, null=True)
     longitude = models.FloatField(blank=True, null=True)
-    google_map_link = models.URLField(blank=True, null=True)
+    link = models.URLField(blank=True, null=True)
 
     def __str__(self):
         return self.title

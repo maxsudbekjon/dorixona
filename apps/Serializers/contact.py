@@ -1,0 +1,36 @@
+from rest_framework import serializers
+from apps.models import ContactRequest
+import requests
+from django.conf import settings
+
+class ContactRequestSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ContactRequest
+        fields = '__all__'
+
+    def create(self, validated_data):
+        instance = super().create(validated_data)
+
+        # Telegramga xabar yuborish
+        self.send_telegram_message(instance)
+
+        return instance
+
+    def send_telegram_message(self, instance):
+        bot_token = settings.TELEGRAM_BOT_TOKEN
+        chat_id = settings.TELEGRAM_CHAT_ID
+
+        text = (
+            f"📩 New Contact Request\n\n"
+            f"👤 Name: {instance.name}\n"
+            f"📞 Phone: {instance.phone}\n"
+            f"📧 Email: {instance.email}\n"
+            f"📝 Message: {instance.message}"
+        )
+
+        url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
+
+        requests.post(url, data={
+            "chat_id": chat_id,
+            "text": text
+        })
