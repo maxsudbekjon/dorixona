@@ -3,6 +3,9 @@ from apps.models import ContactRequest
 import requests
 from django.conf import settings
 
+bot_token = settings.TELEGRAM_BOT_TOKEN
+chat_id = settings.TELEGRAM_CHAT_ID
+
 class ContactRequestSerializer(serializers.ModelSerializer):
     class Meta:
         model = ContactRequest
@@ -17,13 +20,13 @@ class ContactRequestSerializer(serializers.ModelSerializer):
         return instance
 
     def send_telegram_message(self, instance):
-        bot_token = settings.TELEGRAM_BOT_TOKEN
-        chat_id = settings.TELEGRAM_CHAT_ID
+
 
         text = (
             f"📩 New Contact Request\n\n"
-            f"👤 Name: {instance.name}\n"
-            f"📞 Phone: {instance.phone}\n"
+            f"Service: {instance.service.title}\n\n"
+            f"👤 Name: {instance.first_name}\n"
+            f"📞 Phone: {instance.phone_number}\n"
             f"📧 Email: {instance.email}\n"
             f"📝 Message: {instance.message}"
         )
