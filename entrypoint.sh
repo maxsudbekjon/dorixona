@@ -19,7 +19,7 @@ echo "Collecting static..."
 python manage.py collectstatic --noinput
 
 echo "Running Gunicorn..."
-exec gunicorn src.wsgi:application \
+exec gunicorn config.wsgi:application \
     --bind 0.0.0.0:$WEB_PORT \
     --workers=4 \
     --threads=2 \
