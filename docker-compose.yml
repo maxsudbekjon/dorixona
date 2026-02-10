@@ -21,8 +21,8 @@ services:
       - .:/app
       - ./media:/app/media
       - ./static:/app/static
-      - ./locale:/app/locale
       - ./logs:/app/logs
+      - ./staticfiles:/app/staticfiles
     # Port bo'sh qolmasligi uchun default 8000 qo'shildi
     ports:
       - "${WEB_PORT:-8000}:${WEB_PORT:-8000}"
@@ -36,3 +36,5 @@ volumes:
   postgres_data:
   media:
   static:
+  staticfiles:
+  logs:
