@@ -27,7 +27,7 @@ exec gunicorn config.wsgi:application \
     --access-logfile - \
     --error-logfile - \
     --capture-output \
-    --log-level debug
+    --log-level info
 
 
 #exec gunicorn src.asgi:application \
