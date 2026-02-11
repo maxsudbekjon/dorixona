@@ -156,7 +156,7 @@ TELEGRAM_CHAT_ID = os.environ.get('TELEGRAM_CHAT_ID')
 
 CORS_ALLOW_ALL_ORIGINS = True if os.environ.get("CORS_ALLOW_ALL_ORIGINS") == "True" else False
 CORS_ALLOW_CREDENTIALS = True
-CORS_ALLOWED_ORIGINS = os.environ.get("CORS_ALLOWED_ORIGINS").split(',')
+CORS_ALLOWED_ORIGINS = [origin for origin in os.environ.get("CORS_ALLOWED_ORIGINS").split(',') if origin != '' ]
 print(f"\n{CORS_ALLOWED_ORIGINS = }\n")
 # CORS_ALLOW_HEADERS = [
 #     "accept",
