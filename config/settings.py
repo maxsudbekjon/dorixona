@@ -1,19 +1,16 @@
 import os
 from pathlib import Path
 from dotenv import load_dotenv
+
 load_dotenv()
 
-
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 DEBUG = True if os.environ.get('DEBUG') == "True" else False
 
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(',')
-
-
 
 INSTALLED_APPS = [
     "jazzmin",
@@ -23,12 +20,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'rest_framework',
+    'corsheaders',
     'drf_spectacular',
     'apps'
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -62,9 +62,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-
 DB_ENGINE = os.environ.get('DB_ENGINE')
-
 
 if DB_ENGINE == "django.db.backends.sqlite3":
     DATABASES = {
@@ -85,8 +83,6 @@ else:
         }
     }
 
-
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -102,8 +98,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -112,8 +106,7 @@ USE_I18N = True
 
 USE_TZ = True
 
-
-MEDIA_ROOT=BASE_DIR / 'media'
+MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'
 
 STATIC_URL = 'static/'
@@ -133,15 +126,12 @@ if not DEBUG:
         }
     }
 
-
-
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ],
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
-
 
 SPECTACULAR_SETTINGS = {
     'TITLE': 'Dorixona',
@@ -153,10 +143,9 @@ SPECTACULAR_SETTINGS = {
 TELEGRAM_BOT_TOKEN = os.environ.get('TELEGRAM_BOT_TOKEN')
 TELEGRAM_CHAT_ID = os.environ.get('TELEGRAM_CHAT_ID')
 
-
 CORS_ALLOW_ALL_ORIGINS = True if os.environ.get("CORS_ALLOW_ALL_ORIGINS") == "True" else False
 CORS_ALLOW_CREDENTIALS = True
-CORS_ALLOWED_ORIGINS = [origin for origin in os.environ.get("CORS_ALLOWED_ORIGINS").split(',') if origin != '' ]
+CORS_ALLOWED_ORIGINS = [origin for origin in os.environ.get("CORS_ALLOWED_ORIGINS").split(',') if origin != '']
 print(f"\n{CORS_ALLOWED_ORIGINS = }\n")
 # CORS_ALLOW_HEADERS = [
 #     "accept",
@@ -168,9 +157,7 @@ print(f"\n{CORS_ALLOWED_ORIGINS = }\n")
 CSRF_COOKIE_SECURE = False
 SESSION_COOKIE_SECURE = False
 
-CSRF_TRUSTED_ORIGINS = os.environ.get("CSRF_TRUSTED_ORIGINS").split(',')
-
-
+CSRF_TRUSTED_ORIGINS = [origin for origin in os.environ.get("CSRF_TRUSTED_ORIGINS").split(',') if origin != '']
 
 os.makedirs(BASE_DIR / 'logs', exist_ok=True)
 LOGGING = {
@@ -213,5 +200,3 @@ LOGGING = {
         },
     },
 }
-
-
