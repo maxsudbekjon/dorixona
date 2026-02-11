@@ -24,7 +24,7 @@ class ContactRequestSerializer(serializers.ModelSerializer):
 
         text = (
             f"📩 New Contact Request\n\n"
-            f"Service: {instance.service.title}\n\n"
+            # f"Service: {instance.service.title}\n\n"
             f"👤 Name: {instance.first_name}\n"
             f"📞 Phone: {instance.phone_number}\n"
             f"📧 Email: {instance.email}\n"

@@ -9,11 +9,11 @@ class ContactRequest(models.Model):
     last_name = models.CharField(max_length=100)
     email = models.EmailField(blank=True, null=True)
     phone_number = models.CharField(max_length=20)
-    message = models.TextField(blank=True, null=True)  # Qo'shimcha xabar uchun
-    want_delivery = models.BooleanField(default=False)  # Checkbox: "Yes, I want free pick-up..."
+    message = models.TextField(blank=True, null=True)
+    # want_delivery = models.BooleanField(default=False)  # Checkbox: "Yes, I want free pick-up..."
 
     # Qo'lyozmadagi "service" maydoni (ixtiyoriy)
-    service = models.ForeignKey(Service, on_delete=models.SET_NULL, null=True, blank=True)
+    # service = models.ForeignKey(Service, on_delete=models.SET_NULL, null=True, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
 
