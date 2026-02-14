@@ -11,7 +11,7 @@ class ServiceCategory(models.Model):
 
 class Service(models.Model):
     category = models.ForeignKey(ServiceCategory,
-                                 on_delete=models.CASCADE,
+                                 on_delete=models.SET_NULL,
                                  related_name='services',
                                  blank=True,
                                  null=True)
