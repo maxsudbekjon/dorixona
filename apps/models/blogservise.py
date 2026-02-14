@@ -1,16 +1,25 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 
-# 1. Services (Xizmatlar bo'limi uchun)
+
+class ServiceCategory(models.Model):
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
+
+
 class Service(models.Model):
-    title = models.CharField(max_length=255) # Figma: "Free Delivery...", "Immunizations"
-    image = models.ImageField(upload_to='services/') # Figma: Rasmlar
-    description = models.TextField(blank=True, null=True) # Qo'lyozmada bor, Figmada ichki sahifa uchun kerak bo'ladi
+    category = models.ForeignKey(ServiceCategory, on_delete=models.CASCADE, related_name='services')
+    title = models.CharField(max_length=255)
+    image = models.ImageField(upload_to='services/')
+    description = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.title
 
-# 2. Resources (Foydali havolalar bo'limi uchun)
+
+
 class Resource(models.Model):
     name = models.CharField(max_length=255) # Figma: "U.S. Food and Drug Administration"
     url = models.URLField() # Figma: "www.fda.gov"
@@ -18,7 +27,7 @@ class Resource(models.Model):
     def __str__(self):
         return self.name
 
-# 3. Blog (Yangiliklar bo'limi uchun)
+
 class BlogPost(models.Model):
     title = models.CharField(max_length=255) # Figma: "Understanding Your Medications..."
     image = models.ImageField(upload_to='blog/') # Figma: Rasm
@@ -28,7 +37,7 @@ class BlogPost(models.Model):
     def __str__(self):
         return self.title
 
-# 4. Reviews/Comments (Mijozlar fikrlari)
+
 class Review(models.Model):
     full_name = models.CharField(max_length=100) # Figma: "Emily Carter"
     avatar = models.ImageField(upload_to='reviews/', blank=True, null=True) # Figma: User rasmi

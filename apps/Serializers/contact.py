@@ -14,7 +14,6 @@ class ContactRequestSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         instance = super().create(validated_data)
 
-        # Telegramga xabar yuborish
         self.send_telegram_message(instance)
 
         return instance
