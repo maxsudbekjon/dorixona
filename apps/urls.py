@@ -1,6 +1,6 @@
 
 from django.urls import path
-from apps.views import (StaticsViews, ServiceListView, ServiceRetrieveView,
+from apps.views import (StaticsViews, ServiceCategoryListView, ServiceRetrieveView,
                         ReviewListAPIView, LocationListAPIView, RefillOrderCreateAPIView, ResourceAPIList,
                         BlogListAPIView,BlogDetailAPIView,ContactRequestCreateAPIView)
 
@@ -13,7 +13,7 @@ urlpatterns = [
     ),
     path(
         "servive-list/",
-        ServiceListView.as_view(),
+        ServiceCategoryListView.as_view(),
         name = 'service-list'
     ),
     path(
