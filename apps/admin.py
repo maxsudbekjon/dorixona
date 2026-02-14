@@ -1,9 +1,10 @@
 from django.contrib import admin
-from apps.models import Statistics, Service,Review,RefillOrder,RefillItem,ExtraItem,Resource,BlogPost,ContactRequest
+from apps.models import Statistics, Service,Review,RefillOrder,RefillItem,ExtraItem,Resource,BlogPost,ContactRequest, ServiceCategory
 from apps.models.Location import Location,WorkHour
 
 
 admin.site.register(Statistics)
+admin.site.register(ServiceCategory)
 admin.site.register(Service)
 admin.site.register(Review)
 admin.site.register(WorkHour)
